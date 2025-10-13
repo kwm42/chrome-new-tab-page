@@ -16,7 +16,7 @@ function App() {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [editingWebsite, setEditingWebsite] = useState<Website | null>(null);
 
-  // 监听打开添加网站弹窗事件
+  // 监听打开弹窗事件
   useEffect(() => {
     const handleOpenAddModal = () => {
       setEditingWebsite(null);

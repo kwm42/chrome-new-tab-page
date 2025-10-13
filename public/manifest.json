@@ -10,5 +10,13 @@
     "16": "vite.svg",
     "48": "vite.svg",
     "128": "vite.svg"
-  }
+  },
+  "permissions": [
+    "bookmarks",
+    "storage",
+    "file:///*"
+  ],
+  "host_permissions": [
+    "file:///*"
+  ]
 }

@@ -27,8 +27,8 @@ export interface Website {
  * 背景配置接口
  */
 export interface BackgroundConfig {
-  type: 'gradient' | 'local-path' | 'base64';
-  value?: string; // 本地路径或 base64
+  type: 'gradient' | 'local-path' | 'file' | 'video';
+  value?: string; // 本地路径、文件 URL 或视频 URL
   gradient?: {
     colors: string[];
     angle?: number;

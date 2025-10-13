@@ -66,9 +66,9 @@ export const validateConfig = (config: unknown): ValidationResult => {
     errors.push('缺少有效的 background 配置');
   } else {
     const bg = cfg.background as Record<string, unknown>;
-    const validTypes = ['gradient', 'local-path', 'base64'];
+    const validTypes = ['gradient', 'local-path', 'file', 'video'];
     if (!validTypes.includes(bg.type as string)) {
-      errors.push('background.type 必须是 gradient、local-path 或 base64');
+      errors.push('background.type 必须是 gradient、local-path、file 或 video');
     }
     if (!bg.effects || typeof bg.effects !== 'object') {
       errors.push('缺少 background.effects 配置');

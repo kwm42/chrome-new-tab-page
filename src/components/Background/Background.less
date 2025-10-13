@@ -5,47 +5,10 @@
   width: 100%;
   height: 100%;
   z-index: -1;
-  background: linear-gradient(135deg, 
-    #f8d5d5 0%, 
-    #f5c5c5 10%,
-    #e8b5c8 20%,
-    #d5a8c8 30%,
-    #c5b5d5 40%,
-    #b5c5e5 50%,
-    #a8d5e8 60%,
-    #98e5d5 70%,
-    #88f5c8 80%,
-    #98e5b8 90%,
-    #a8d5a8 100%
-  );
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
+  transition: opacity 0.3s ease, filter 0.3s ease;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-      radial-gradient(circle at 20% 80%, rgba(129, 199, 132, 0.4) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(66, 165, 245, 0.4) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, rgba(239, 83, 80, 0.3) 0%, transparent 50%),
-      radial-gradient(circle at 70% 70%, rgba(255, 167, 38, 0.3) 0%, transparent 50%),
-      radial-gradient(circle at 10% 30%, rgba(171, 71, 188, 0.3) 0%, transparent 50%);
-    opacity: 0.8;
-  }
-}
-
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
+  &.background-video {
+    object-fit: cover;
+    object-position: center;
   }
 }

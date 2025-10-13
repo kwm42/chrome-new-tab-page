@@ -64,6 +64,13 @@ Phase 2: 分类系统开发完成报告，包括：
 - 视觉反馈和动画效果
 - 实时保存排序结果
 
+### [BACKGROUND_SYSTEM.md](./BACKGROUND_SYSTEM.md)
+背景系统功能文档：
+- 渐变背景和图片背景设置
+- 背景效果调节（模糊、亮度、透明度）
+- 集成到设置弹窗中的 Tab 界面
+- 使用方法和技术实现细节
+
 ## 🗂️ 文档组织
 
 ```
@@ -76,7 +83,8 @@ docs/
 ├── STATE_SYNC_ISSUE.md            # 状态同步问题分析
 ├── FIX_STATE_SYNC.md              # 状态同步修复报告
 ├── EDIT_INTERACTION_IMPROVEMENT.md # 编辑交互优化
-└── DRAG_DROP_SORT.md              # 拖拽排序功能
+├── DRAG_DROP_SORT.md              # 拖拽排序功能
+└── BACKGROUND_SYSTEM.md           # 背景系统功能
 ```
 
 ## 📖 阅读顺序建议

@@ -5,6 +5,9 @@ interface HeaderProps {
   profileImage?: string;
 }
 
+/**
+ * 顶部导航栏
+ */
 const Header: React.FC<HeaderProps> = ({
   gmailUrl = 'https://mail.google.com',
   profileImage
