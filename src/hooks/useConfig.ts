@@ -45,6 +45,13 @@ export const useConfig = () => {
     setConfig(configService.getConfig());
   }, []);
 
+  // 只重置网站配置，保留背景和其他设置
+  const resetWebsitesConfig = useCallback(() => {
+    storageService.resetWebsites();
+    setConfig(configService.getConfig());
+    configEmitter.emit();
+  }, []);
+
   // 导出配置
   const exportConfig = useCallback(() => {
     return storageService.export();
@@ -75,6 +82,7 @@ export const useConfig = () => {
     config,
     updateConfig,
     resetConfig,
+    resetWebsitesConfig,
     exportConfig,
     importConfig,
   };

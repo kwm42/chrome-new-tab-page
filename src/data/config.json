@@ -465,7 +465,7 @@
     }
   ],
   "background": {
-    "type": "gradient",
+    "type": "file",
     "gradient": {
       "colors": [
         "#E3F2FD",
@@ -478,7 +478,7 @@
       "brightness": 100,
       "opacity": 100
     },
-    "value": "file:///C:/Users/WIT_User/Pictures/001.png"
+    "value": "./image/wallhaven-pkmvpp.jpg"
   },
   "settings": {
     "activeCategory": "tools",

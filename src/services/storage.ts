@@ -101,6 +101,27 @@ class StorageService {
   }
 
   /**
+   * 只重置网站和分类配置，保留背景和其他设置
+   */
+  resetWebsites(): void {
+    const currentConfig = this.load();
+    const defaultConfig = getDefaultConfig();
+    
+    // 只替换 categories 和 websites，保留其他配置
+    const newConfig: AppConfig = {
+      ...currentConfig,
+      categories: defaultConfig.categories,
+      websites: defaultConfig.websites,
+      settings: {
+        ...currentConfig.settings,
+        activeCategory: 'all', // 重置当前分类为"全部"
+      },
+    };
+    
+    this.save(newConfig);
+  }
+
+  /**
    * 清除所有配置
    */
   clear(): void {

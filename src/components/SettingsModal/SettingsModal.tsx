@@ -3,6 +3,7 @@ import Modal from '../Modal';
 import { useConfig } from '../../hooks/useConfig';
 import { useBackground } from '../../hooks/useBackground';
 import { LIGHT_COLORS } from '../../utils/colors';
+import { getDefaultConfig } from '../../data/default-config';
 import './SettingsModal.less';
 
 interface SettingsModalProps {
@@ -14,7 +15,7 @@ interface SettingsModalProps {
  * 设置弹窗 - 配置管理 + 背景设置
  */
 const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
-  const { config, updateConfig, exportConfig, importConfig, resetConfig } = useConfig();
+  const { config, updateConfig, exportConfig, importConfig, resetWebsitesConfig } = useConfig();
   const { background, setGradientBackground, setFileBackground, setVideoBackground, updateBackgroundEffects } = useBackground();
   
   const [activeTab, setActiveTab] = useState<'config' | 'background' | 'appearance'>('config');
@@ -84,11 +85,11 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
 
   const handleReset = () => {
     const confirmed = window.confirm(
-      '确定要重置所有配置吗？\n\n这将删除所有自定义的分类和网站，恢复到默认配置。\n此操作不可撤销！'
+      '确定要重置网站配置吗？\n\n这将删除所有自定义的分类和网站，恢复到默认配置。\n背景设置和外观设置将保留。\n此操作不可撤销！'
     );
     if (confirmed) {
-      resetConfig();
-      setMessage({ type: 'success', text: '配置已重置！页面将刷新...' });
+      resetWebsitesConfig();
+      setMessage({ type: 'success', text: '网站配置已重置！页面将刷新...' });
       setTimeout(() => {
         window.location.reload();
       }, 1500);
@@ -166,17 +167,23 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
     setTimeout(() => setMessage(null), 3000);
   };
 
-  // 重置外观设置
+  // 重置外观设置（只重置外观，保留网站和背景设置）
   const handleResetAppearance = () => {
-    setWebsiteNameColor('#000000');
-    updateConfig({
-      settings: {
-        ...config.settings,
-        websiteNameColor: '#000000',
-      },
-    });
-    setMessage({ type: 'success', text: '外观设置已重置！' });
-    setTimeout(() => setMessage(null), 3000);
+    const confirmed = window.confirm(
+      '确定要重置外观设置吗？\n\n网站名称颜色将恢复为默认黑色。\n网站配置和背景设置将保留。'
+    );
+    if (confirmed) {
+      const defaultColor = 'rgba(0, 0, 0, 0.87)';
+      setWebsiteNameColor(defaultColor);
+      updateConfig({
+        settings: {
+          ...config.settings,
+          websiteNameColor: defaultColor,
+        },
+      });
+      setMessage({ type: 'success', text: '外观设置已重置！' });
+      setTimeout(() => setMessage(null), 3000);
+    }
   };
 
   // 更新效果
@@ -192,16 +199,38 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
     setTimeout(() => setMessage(null), 3000);
   };
 
-  // 重置为默认背景
+  // 重置为默认背景（只重置背景，保留网站和外观设置）
   const handleResetBackground = () => {
-    const defaultColors = ['#E3F2FD', '#F3E5F5', '#E8F5E9'];
-    setGradientBackground(defaultColors);
-    const defaultEffects = { blur: 0, brightness: 100, opacity: 100 };
-    updateBackgroundEffects(defaultEffects);
-    setGradientColors(defaultColors);
-    setEffects(defaultEffects);
-    setMessage({ type: 'success', text: '背景已重置！' });
-    setTimeout(() => setMessage(null), 3000);
+    const confirmed = window.confirm(
+      '确定要重置背景设置吗？\n\n这将恢复到默认背景配置。\n网站配置和外观设置将保留。'
+    );
+    if (confirmed) {
+      const defaultConfig = getDefaultConfig();
+      const defaultBackground = defaultConfig.background;
+      
+      // 根据默认配置的类型进行重置
+      if (defaultBackground.type === 'gradient') {
+        setGradientBackground(defaultBackground.gradient?.colors || ['#E3F2FD', '#F3E5F5', '#E8F5E9']);
+        setGradientColors(defaultBackground.gradient?.colors || ['#E3F2FD', '#F3E5F5', '#E8F5E9']);
+        setBackgroundType('gradient');
+      } else if (defaultBackground.type === 'file') {
+        setFileBackground(defaultBackground.value || '');
+        setImagePath(defaultBackground.value || '');
+        setBackgroundType('image');
+      } else if (defaultBackground.type === 'video') {
+        setVideoBackground(defaultBackground.value || '');
+        setVideoPath(defaultBackground.value || '');
+        setBackgroundType('video');
+      }
+      
+      // 重置效果
+      const defaultEffects = defaultBackground.effects || { blur: 0, brightness: 100, opacity: 100 };
+      updateBackgroundEffects(defaultEffects);
+      setEffects(defaultEffects);
+      
+      setMessage({ type: 'success', text: '背景设置已重置！' });
+      setTimeout(() => setMessage(null), 3000);
+    }
   };
 
   return (
@@ -290,12 +319,12 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
 
             {/* 重置配置 */}
             <section className="settings-section">
-              <h3 className="section-title">🔄 重置配置</h3>
+              <h3 className="section-title">🔄 重置网站配置</h3>
               <p className="section-desc danger">
-                ⚠️ 将删除所有自定义内容，恢复到默认配置。此操作不可撤销！
+                ⚠️ 将删除所有自定义的分类和网站，恢复到默认配置。背景设置和外观设置将保留。此操作不可撤销！
               </p>
               <button className="btn btn-danger" onClick={handleReset}>
-                重置为默认配置
+                重置网站配置
               </button>
             </section>
           </div>
@@ -518,8 +547,11 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
 
             {/* 重置背景 */}
             <div className="reset-background-section">
+              <p className="section-desc">
+                重置将恢复到默认背景配置，网站配置和外观设置将保留。
+              </p>
               <button type="button" className="btn btn-secondary" onClick={handleResetBackground}>
-                重置为默认背景
+                重置背景设置
               </button>
             </div>
           </div>
