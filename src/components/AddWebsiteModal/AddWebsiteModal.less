@@ -97,6 +97,50 @@
     text-transform: uppercase;
   }
 
+  // 快速颜色选择器
+  .quick-color-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .color-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+
+    &:hover {
+      transform: scale(1.1);
+      border-color: rgba(0, 0, 0, 0.2);
+    }
+
+    &.active {
+      border-color: #42a5f5;
+      box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.3);
+
+      &::after {
+        content: '✓';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #1976d2;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #42a5f5;
+    }
+  }
+
   // 图标选择器
   .icon-selector {
     display: flex;

@@ -46,6 +46,8 @@ const AddWebsiteModal: React.FC<AddWebsiteModalProps> = ({ isOpen, onClose, edit
         color: editingWebsite.color || DEFAULT_LIGHT_COLOR,
       });
       setIsColorModified(!!editingWebsite.color);
+      setErrors({});
+      setIsLoadingFavicon(false);
     } else {
       // 重置表单
       setFormData({
@@ -56,10 +58,10 @@ const AddWebsiteModal: React.FC<AddWebsiteModalProps> = ({ isOpen, onClose, edit
         iconType: 'auto',
         color: DEFAULT_LIGHT_COLOR,
       });
+      setIsColorModified(false);
+      setErrors({});
+      setIsLoadingFavicon(false);
     }
-    setErrors({});
-    setIsLoadingFavicon(false);
-    setIsColorModified(false);
   }, [editingWebsite, isOpen]);
 
   const handleChange = (field: string, value: string) => {
@@ -333,6 +335,32 @@ const AddWebsiteModal: React.FC<AddWebsiteModalProps> = ({ isOpen, onClose, edit
         {/* 颜色设置 */}
         <div className="form-group">
           <label className="form-label">背景颜色</label>
+          
+          {/* 快速颜色选择器 */}
+          <div className="quick-color-picker">
+            {[
+              '#FFFFFF', // 白色
+              '#000000', // 黑色
+              '#E3F2FD', // 浅蓝
+              '#E8F5E9', // 浅绿
+              '#FFF3E0', // 浅橙
+              '#FCE4EC', // 浅粉
+              '#E0F2F1', // 浅青
+              '#f7e9fb', // 浅紫
+              '#f8e8e8', // 浅红
+            ].map((color) => (
+              <button
+                key={color}
+                type="button"
+                className={`color-option ${formData.color === color ? 'active' : ''}`}
+                style={{ backgroundColor: color }}
+                onClick={() => handleChange('color', color)}
+                title={color}
+              />
+            ))}
+          </div>
+
+          {/* 自定义颜色输入 */}
           <div className="color-input-wrapper">
             <input
               type="color"
