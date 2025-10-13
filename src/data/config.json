@@ -1,0 +1,489 @@
+{
+  "version": "1.0.0",
+  "categories": [
+    {
+      "id": "all",
+      "name": "全部",
+      "icon": "🌐",
+      "order": 0
+    },
+    {
+      "id": "dev",
+      "name": "编程开发",
+      "icon": "💻",
+      "color": "#42A5F5",
+      "order": 1
+    },
+    {
+      "id": "media",
+      "name": "影视娱乐",
+      "icon": "🎬",
+      "color": "#EF5350",
+      "order": 2
+    },
+    {
+      "id": "game",
+      "name": "游戏",
+      "icon": "🎮",
+      "color": "#AB47BC",
+      "order": 3
+    },
+    {
+      "id": "social",
+      "name": "社交媒体",
+      "icon": "💬",
+      "color": "#26A69A",
+      "order": 4
+    },
+    {
+      "id": "tools",
+      "name": "工具效率",
+      "icon": "🔧",
+      "color": "#FFA726",
+      "order": 5
+    }
+  ],
+  "websites": [
+    {
+      "id": "github",
+      "name": "GitHub",
+      "url": "https://github.com",
+      "icon": "https://www.google.com/s2/favicons?domain=github.com&sz=64",
+      "categoryId": "dev",
+      "order": 0,
+      "iconType": "url",
+      "color": "#FFFFFF"
+    },
+    {
+      "id": "stackoverflow",
+      "name": "Stack Overflow",
+      "url": "https://stackoverflow.com",
+      "icon": "https://www.google.com/s2/favicons?domain=stackoverflow.com&sz=64",
+      "categoryId": "dev",
+      "order": 1,
+      "iconType": "url",
+      "color": "#f8e8e8"
+    },
+    {
+      "id": "mdn",
+      "name": "MDN",
+      "url": "https://developer.mozilla.org",
+      "icon": "https://www.google.com/s2/favicons?domain=developer.mozilla.org&sz=64",
+      "categoryId": "dev",
+      "order": 2,
+      "iconType": "url",
+      "color": "#000000"
+    },
+    {
+      "id": "vscode",
+      "name": "VS Code",
+      "url": "https://code.visualstudio.com",
+      "icon": "https://www.google.com/s2/favicons?domain=code.visualstudio.com&sz=64",
+      "categoryId": "dev",
+      "order": 3,
+      "iconType": "url",
+      "color": "#FFFFFF"
+    },
+    {
+      "id": "gitlab",
+      "name": "GitLab",
+      "url": "https://gitlab.com",
+      "icon": "https://www.google.com/s2/favicons?domain=gitlab.com&sz=64",
+      "categoryId": "dev",
+      "order": 4,
+      "iconType": "url",
+      "color": "#E3F2FD"
+    },
+    {
+      "id": "npmjs",
+      "name": "npm",
+      "url": "https://www.npmjs.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.npmjs.com&sz=64",
+      "categoryId": "dev",
+      "order": 5,
+      "iconType": "url",
+      "color": "#FFFFFF"
+    },
+    {
+      "id": "leetcode",
+      "name": "LeetCode",
+      "url": "https://leetcode.com",
+      "icon": "https://www.google.com/s2/favicons?domain=leetcode.com&sz=64",
+      "categoryId": "dev",
+      "order": 6,
+      "iconType": "url",
+      "color": "#E0F2F1"
+    },
+    {
+      "id": "devdocs",
+      "name": "DevDocs",
+      "url": "https://devdocs.io",
+      "icon": "https://www.google.com/s2/favicons?domain=devdocs.io&sz=64",
+      "categoryId": "dev",
+      "order": 7,
+      "iconType": "url",
+      "color": "#FFFFFF"
+    },
+    {
+      "id": "codepen",
+      "name": "CodePen",
+      "url": "https://codepen.io",
+      "icon": "https://www.google.com/s2/favicons?domain=codepen.io&sz=64",
+      "categoryId": "dev",
+      "order": 8,
+      "iconType": "url",
+      "color": "#000000"
+    },
+    {
+      "id": "replit",
+      "name": "Replit",
+      "url": "https://replit.com",
+      "icon": "https://www.google.com/s2/favicons?domain=replit.com&sz=64",
+      "categoryId": "dev",
+      "order": 9,
+      "iconType": "url",
+      "color": "#E0F2F1"
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "url": "https://www.youtube.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.youtube.com&sz=64",
+      "categoryId": "media",
+      "order": 10,
+      "iconType": "url",
+      "color": "#FF0000"
+    },
+    {
+      "id": "bilibili",
+      "name": "Bilibili",
+      "url": "https://www.bilibili.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.bilibili.com&sz=64",
+      "categoryId": "media",
+      "order": 11,
+      "iconType": "url",
+      "color": "#00A1D6"
+    },
+    {
+      "id": "netflix",
+      "name": "Netflix",
+      "url": "https://www.netflix.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.netflix.com&sz=64",
+      "categoryId": "media",
+      "order": 12,
+      "iconType": "url",
+      "color": "#FFFFFF"
+    },
+    {
+      "id": "spotify",
+      "name": "Spotify",
+      "url": "https://www.spotify.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.spotify.com&sz=64",
+      "categoryId": "media",
+      "order": 13,
+      "iconType": "url",
+      "color": "#000000"
+    },
+    {
+      "id": "twitch",
+      "name": "Twitch",
+      "url": "https://www.twitch.tv",
+      "icon": "https://www.google.com/s2/favicons?domain=www.twitch.tv&sz=64",
+      "categoryId": "media",
+      "order": 14,
+      "iconType": "url",
+      "color": "#f7e9fb"
+    },
+    {
+      "id": "douyin",
+      "name": "抖音",
+      "url": "https://www.douyin.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.douyin.com&sz=64",
+      "categoryId": "media",
+      "order": 15,
+      "iconType": "url",
+      "color": "#000000"
+    },
+    {
+      "id": "iqiyi",
+      "name": "爱奇艺",
+      "url": "https://www.iqiyi.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.iqiyi.com&sz=64",
+      "categoryId": "media",
+      "order": 16,
+      "iconType": "url",
+      "color": "#00BE06"
+    },
+    {
+      "id": "youku",
+      "name": "优酷",
+      "url": "https://www.youku.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.youku.com&sz=64",
+      "categoryId": "media",
+      "order": 17,
+      "iconType": "url",
+      "color": "#FFFFFF"
+    },
+    {
+      "id": "steam",
+      "name": "Steam",
+      "url": "https://store.steampowered.com",
+      "icon": "https://www.google.com/s2/favicons?domain=store.steampowered.com&sz=64",
+      "categoryId": "game",
+      "order": 18,
+      "iconType": "url",
+      "color": "#FFFFFF"
+    },
+    {
+      "id": "epic",
+      "name": "Epic Games",
+      "url": "https://www.epicgames.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.epicgames.com&sz=64",
+      "categoryId": "game",
+      "order": 19,
+      "iconType": "url",
+      "color": "#000000"
+    },
+    {
+      "id": "gog",
+      "name": "GOG",
+      "url": "https://www.gog.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.gog.com&sz=64",
+      "categoryId": "game",
+      "order": 20,
+      "iconType": "url",
+      "color": "#86328A"
+    },
+    {
+      "id": "ubisoft",
+      "name": "Ubisoft",
+      "url": "https://www.ubisoft.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.ubisoft.com&sz=64",
+      "categoryId": "game",
+      "order": 21,
+      "iconType": "url",
+      "color": "#E3F2FD"
+    },
+    {
+      "id": "origin",
+      "name": "Origin",
+      "url": "https://www.origin.com",
+      "categoryId": "game",
+      "order": 22,
+      "iconType": "auto",
+      "color": "#000000"
+    },
+    {
+      "id": "itch",
+      "name": "itch.io",
+      "url": "https://itch.io",
+      "icon": "https://www.google.com/s2/favicons?domain=itch.io&sz=64",
+      "categoryId": "game",
+      "order": 23,
+      "iconType": "url",
+      "color": "#FFF3E0"
+    },
+    {
+      "id": "battlenet",
+      "name": "Battle.net",
+      "url": "https://www.battle.net",
+      "icon": "https://www.google.com/s2/favicons?domain=www.battle.net&sz=64",
+      "categoryId": "game",
+      "order": 24,
+      "iconType": "url",
+      "color": "#FFFFFF"
+    },
+    {
+      "id": "nintendo",
+      "name": "Nintendo",
+      "url": "https://www.nintendo.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.nintendo.com&sz=64",
+      "categoryId": "game",
+      "order": 25,
+      "iconType": "url",
+      "color": "#E60012"
+    },
+    {
+      "id": "twitter",
+      "name": "Twitter",
+      "url": "https://twitter.com",
+      "icon": "https://www.google.com/s2/favicons?domain=twitter.com&sz=64",
+      "categoryId": "social",
+      "order": 26,
+      "iconType": "url",
+      "color": "#000000"
+    },
+    {
+      "id": "instagram",
+      "name": "Instagram",
+      "url": "https://www.instagram.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.instagram.com&sz=64",
+      "categoryId": "social",
+      "order": 27,
+      "iconType": "url",
+      "color": "#FFFFFF"
+    },
+    {
+      "id": "facebook",
+      "name": "Facebook",
+      "url": "https://www.facebook.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.facebook.com&sz=64",
+      "categoryId": "social",
+      "order": 28,
+      "iconType": "url",
+      "color": "#147aff"
+    },
+    {
+      "id": "weibo",
+      "name": "微博",
+      "url": "https://weibo.com",
+      "icon": "https://www.google.com/s2/favicons?domain=weibo.com&sz=64",
+      "categoryId": "social",
+      "order": 29,
+      "iconType": "url",
+      "color": "#FFF3E0"
+    },
+    {
+      "id": "wechat",
+      "name": "微信",
+      "url": "https://wx.qq.com",
+      "icon": "https://www.google.com/s2/favicons?domain=wx.qq.com&sz=64",
+      "categoryId": "social",
+      "order": 30,
+      "iconType": "url",
+      "color": "#07C160"
+    },
+    {
+      "id": "reddit",
+      "name": "Reddit",
+      "url": "https://www.reddit.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.reddit.com&sz=64",
+      "categoryId": "social",
+      "order": 31,
+      "iconType": "url",
+      "color": "#FF4500"
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.linkedin.com&sz=64",
+      "categoryId": "social",
+      "order": 32,
+      "iconType": "url",
+      "color": "#0A66C2"
+    },
+    {
+      "id": "discord",
+      "name": "Discord",
+      "url": "https://discord.com",
+      "icon": "https://www.google.com/s2/favicons?domain=discord.com&sz=64",
+      "categoryId": "social",
+      "order": 33,
+      "iconType": "url",
+      "color": "#5865F2"
+    },
+    {
+      "id": "gmail",
+      "name": "Gmail",
+      "url": "https://mail.google.com",
+      "icon": "https://www.google.com/s2/favicons?domain=mail.google.com&sz=64",
+      "categoryId": "tools",
+      "order": 34,
+      "iconType": "url",
+      "color": "#EA4335"
+    },
+    {
+      "id": "notion",
+      "name": "Notion",
+      "url": "https://www.notion.so",
+      "icon": "https://www.google.com/s2/favicons?domain=www.notion.so&sz=64",
+      "categoryId": "tools",
+      "order": 35,
+      "iconType": "url",
+      "color": "#000000"
+    },
+    {
+      "id": "figma",
+      "name": "Figma",
+      "url": "https://www.figma.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.figma.com&sz=64",
+      "categoryId": "tools",
+      "order": 36,
+      "iconType": "url",
+      "color": "#f7e9fb"
+    },
+    {
+      "id": "canva",
+      "name": "Canva",
+      "url": "https://www.canva.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.canva.com&sz=64",
+      "categoryId": "tools",
+      "order": 37,
+      "iconType": "url",
+      "color": "#00C4CC"
+    },
+    {
+      "id": "trello",
+      "name": "Trello",
+      "url": "https://trello.com",
+      "icon": "https://www.google.com/s2/favicons?domain=trello.com&sz=64",
+      "categoryId": "tools",
+      "order": 38,
+      "iconType": "url",
+      "color": "#0079BF"
+    },
+    {
+      "id": "gdrive",
+      "name": "Google Drive",
+      "url": "https://drive.google.com",
+      "icon": "https://www.google.com/s2/favicons?domain=drive.google.com&sz=64",
+      "categoryId": "tools",
+      "order": 39,
+      "iconType": "url",
+      "color": "#FFFFFF"
+    },
+    {
+      "id": "dropbox",
+      "name": "Dropbox",
+      "url": "https://www.dropbox.com",
+      "icon": "https://www.google.com/s2/favicons?domain=www.dropbox.com&sz=64",
+      "categoryId": "tools",
+      "order": 40,
+      "iconType": "url",
+      "color": "#0061FF"
+    },
+    {
+      "id": "chatgpt",
+      "name": "ChatGPT",
+      "url": "https://chat.openai.com",
+      "icon": "https://www.google.com/s2/favicons?domain=chat.openai.com&sz=64",
+      "categoryId": "tools",
+      "order": 41,
+      "iconType": "url",
+      "color": "#FFFFFF"
+    }
+  ],
+  "background": {
+    "type": "gradient",
+    "gradient": {
+      "colors": [
+        "#E3F2FD",
+        "#F3E5F5",
+        "#E8F5E9"
+      ]
+    },
+    "effects": {
+      "blur": 0,
+      "brightness": 100,
+      "opacity": 100
+    },
+    "value": "file:///C:/Users/WIT_User/Pictures/001.png"
+  },
+  "settings": {
+    "activeCategory": "tools",
+    "theme": "auto",
+    "language": "zh-CN",
+    "websiteNameColor": "#030303"
+  }
+}
