@@ -209,6 +209,7 @@ export const getDefaultConfig = (): AppConfig => {
       activeCategory: 'all',
       theme: 'auto',
       language: 'zh-CN',
+      websiteNameColor: 'rgba(0, 0, 0, 0.87)', // 默认网站名称颜色
     },
   };
 };

@@ -16,20 +16,22 @@
   padding: 0 24px;
   margin-top: -60px;
   gap: 32px;
+  position: relative;
 
   .content-top {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    max-width: 800px;
   }
 
   .content-bottom {
     display: flex;
-    gap: 24px;
+    justify-content: center;
     align-items: flex-start;
-    max-width: 1200px;
     width: 100%;
+    position: relative;
   }
 }
 
@@ -40,9 +42,12 @@
     margin-top: -40px;
     gap: 24px;
 
+    .content-top {
+      max-width: 100%;
+    }
+
     .content-bottom {
-      flex-direction: column;
-      gap: 16px;
+      justify-content: center;
     }
   }
 }

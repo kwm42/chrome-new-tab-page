@@ -14,10 +14,10 @@ interface SettingsModalProps {
  * 设置弹窗 - 配置管理 + 背景设置
  */
 const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
-  const { exportConfig, importConfig, resetConfig } = useConfig();
+  const { config, updateConfig, exportConfig, importConfig, resetConfig } = useConfig();
   const { background, setGradientBackground, setFileBackground, setVideoBackground, updateBackgroundEffects } = useBackground();
   
-  const [activeTab, setActiveTab] = useState<'config' | 'background'>('config');
+  const [activeTab, setActiveTab] = useState<'config' | 'background' | 'appearance'>('config');
   const [importText, setImportText] = useState('');
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   
@@ -33,6 +33,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
   const [imagePath, setImagePath] = useState(background.type === 'file' ? background.value || '' : '');
   const [videoPath, setVideoPath] = useState(background.type === 'video' ? background.value || '' : '');
   const [pathError, setPathError] = useState('');
+  
+  // 外观设置
+  const [websiteNameColor, setWebsiteNameColor] = useState(config.settings.websiteNameColor || '#000000');
 
   const handleExport = () => {
     const jsonString = exportConfig();
@@ -151,6 +154,31 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
     setTimeout(() => setMessage(null), 3000);
   };
 
+  // 保存外观设置
+  const handleSaveAppearance = () => {
+    updateConfig({
+      settings: {
+        ...config.settings,
+        websiteNameColor,
+      },
+    });
+    setMessage({ type: 'success', text: '外观设置已保存！' });
+    setTimeout(() => setMessage(null), 3000);
+  };
+
+  // 重置外观设置
+  const handleResetAppearance = () => {
+    setWebsiteNameColor('#000000');
+    updateConfig({
+      settings: {
+        ...config.settings,
+        websiteNameColor: '#000000',
+      },
+    });
+    setMessage({ type: 'success', text: '外观设置已重置！' });
+    setTimeout(() => setMessage(null), 3000);
+  };
+
   // 更新效果
   const handleEffectChange = (key: keyof typeof effects, value: number) => {
     const newEffects = { ...effects, [key]: value };
@@ -194,6 +222,13 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
             onClick={() => setActiveTab('background')}
           >
             背景设置
+          </button>
+          <button
+            type="button"
+            className={`tab-btn ${activeTab === 'appearance' ? 'active' : ''}`}
+            onClick={() => setActiveTab('appearance')}
+          >
+            外观设置
           </button>
         </div>
 
@@ -487,6 +522,56 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                 重置为默认背景
               </button>
             </div>
+          </div>
+        )}
+
+        {/* 外观设置 Tab */}
+        {activeTab === 'appearance' && (
+          <div className="tab-content appearance-tab">
+            <section className="settings-section">
+              <h3 className="section-title">🎨 网站名称颜色</h3>
+              <p className="section-desc">自定义网站名称的文字颜色</p>
+              
+              <div className="color-picker-group">
+                <div className="color-picker-row">
+                  <label className="color-label">网站名称颜色</label>
+                  <div className="color-picker-wrapper">
+                    <input
+                      type="color"
+                      value={websiteNameColor}
+                      onChange={(e) => setWebsiteNameColor(e.target.value)}
+                      className="color-picker"
+                    />
+                    <input
+                      type="text"
+                      value={websiteNameColor}
+                      onChange={(e) => setWebsiteNameColor(e.target.value)}
+                      className="color-input"
+                      placeholder="#000000"
+                    />
+                  </div>
+                </div>
+                
+                <div className="color-preview">
+                  <div className="preview-label">预览效果</div>
+                  <div className="preview-website">
+                    <div className="preview-icon"></div>
+                    <div className="preview-name" style={{ color: websiteNameColor }}>
+                      示例网站
+                    </div>
+                  </div>
+                </div>
+
+                <div className="button-group">
+                  <button type="button" className="btn btn-primary" onClick={handleSaveAppearance}>
+                    保存设置
+                  </button>
+                  <button type="button" className="btn btn-secondary" onClick={handleResetAppearance}>
+                    重置为默认
+                  </button>
+                </div>
+              </div>
+            </section>
           </div>
         )}
 

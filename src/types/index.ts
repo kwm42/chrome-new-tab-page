@@ -47,6 +47,7 @@ export interface Settings {
   activeCategory: string;
   theme: 'light' | 'dark' | 'auto';
   language: string;
+  websiteNameColor?: string; // 网站名称文字颜色
 }
 
 /**

@@ -10,7 +10,6 @@ const Footer: React.FC = () => {
     <footer className="footer">
       <div className="footer-left">
         <a href="#" className="footer-credit">
-          Stay Flo by Luc Jordan
         </a>
       </div>
       <div className="footer-right">

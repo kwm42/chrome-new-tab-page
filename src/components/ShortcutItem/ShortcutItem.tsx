@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Website } from '../../types';
 import { getFaviconUrl, isEmoji, isBase64Image, isUrl } from '../../utils/favicon';
 import { getColorFromString, DEFAULT_LIGHT_COLOR } from '../../utils/colors';
+import { useConfig } from '../../hooks/useConfig';
 import './ShortcutItem.less';
 
 interface ShortcutItemProps {
@@ -26,8 +27,11 @@ const ShortcutItem: React.FC<ShortcutItemProps> = ({
   onDragOver,
   onDrop,
 }) => {
+  const { config } = useConfig();
   const [isDragging, setIsDragging] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
+  
+  const websiteNameColor = config.settings.websiteNameColor || 'rgba(0, 0, 0, 0.87)';
 
   const getInitials = (name: string): string => {
     // 如果是 emoji 或特殊字符，直接返回
@@ -141,7 +145,7 @@ const ShortcutItem: React.FC<ShortcutItemProps> = ({
           }
         })()}
       </div>
-      <div className="shortcut-name">{website.name}</div>
+      <div className="shortcut-name" style={{ color: websiteNameColor }}>{website.name}</div>
     </div>
   );
 };
