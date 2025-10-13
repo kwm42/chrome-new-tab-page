@@ -1,8 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './SearchBar.less';
 
 const SearchBar: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // 页面加载后自动聚焦到搜索框
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,6 +38,7 @@ const SearchBar: React.FC = () => {
           </svg>
         </div>
         <input
+          ref={inputRef}
           type="text"
           className="search-input"
           placeholder="在 Google 中搜索或输入网址"
