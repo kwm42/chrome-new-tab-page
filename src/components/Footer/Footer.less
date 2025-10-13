@@ -1,0 +1,52 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  z-index: 100;
+
+  .footer-left {
+    .footer-credit {
+      color: rgba(0, 0, 0, 0.54);
+      text-decoration: none;
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 16px;
+      background-color: rgba(255, 255, 255, 0.9);
+      transition: background-color 0.2s;
+      display: inline-block;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 1);
+      }
+    }
+  }
+
+  .footer-right {
+    .customize-btn {
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+      color: rgba(0, 0, 0, 0.54);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 1);
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
