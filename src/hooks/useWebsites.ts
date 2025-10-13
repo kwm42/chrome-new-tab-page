@@ -11,11 +11,26 @@ export const useWebsites = (categoryId?: string) => {
 
   // 获取网站列表（根据分类过滤）
   const websites = useMemo(() => {
-    let sites = config.websites;
+    const allSites = [...config.websites];
+
+    if (categoryId === 'frequent') {
+      return allSites
+        .filter((site) => (site.clickCount || 0) > 0)
+        .sort((a, b) => {
+          const countDiff = (b.clickCount || 0) - (a.clickCount || 0);
+          if (countDiff !== 0) {
+            return countDiff;
+          }
+          return a.order - b.order;
+        })
+        .slice(0, 14);
+    }
+
+    let sites = allSites;
     if (categoryId && categoryId !== 'all') {
       sites = sites.filter((site) => site.categoryId === categoryId);
     }
-    return sites.sort((a, b) => a.order - b.order);
+    return [...sites].sort((a, b) => a.order - b.order);
   }, [config.websites, categoryId]);
 
   // 添加网站

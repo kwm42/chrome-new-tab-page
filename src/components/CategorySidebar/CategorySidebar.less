@@ -67,12 +67,17 @@
   .category-item {
     display: flex;
     align-items: center;
+    gap: 8px;
     padding: 10px 12px;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
     border-left: 3px solid transparent;
     user-select: none;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
 
     &:hover {
       background: rgba(0, 0, 0, 0.04);
@@ -111,6 +116,25 @@
       overflow: hidden;
       text-overflow: ellipsis;
       transition: all 0.2s;
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  .add-category {
+    border: 1px dashed rgba(66, 165, 245, 0.5);
+    border-left: 1px dashed rgba(66, 165, 245, 0.5);
+    color: rgba(0, 0, 0, 0.7);
+    justify-content: flex-start;
+
+    &:hover {
+      background: rgba(66, 165, 245, 0.12);
+      border-color: #42a5f5;
+      color: rgba(0, 0, 0, 0.9);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.3);
     }
   }
 }

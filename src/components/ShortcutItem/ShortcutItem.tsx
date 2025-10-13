@@ -27,7 +27,7 @@ const ShortcutItem: React.FC<ShortcutItemProps> = ({
   onDragOver,
   onDrop,
 }) => {
-  const { config } = useConfig();
+  const { config, updateConfig } = useConfig();
   const [isDragging, setIsDragging] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
   
@@ -55,6 +55,16 @@ const ShortcutItem: React.FC<ShortcutItemProps> = ({
     if (isEditMode) return;
     
     if (website.url && website.url !== '#') {
+      const updatedWebsites = config.websites.map((site) => {
+        if (site.id === website.id) {
+          return {
+            ...site,
+            clickCount: (site.clickCount || 0) + 1,
+          };
+        }
+        return site;
+      });
+      updateConfig({ websites: updatedWebsites });
       window.location.href = website.url;
     }
   };

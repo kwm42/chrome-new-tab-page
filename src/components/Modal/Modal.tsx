@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom';
 import type { ReactNode } from 'react';
 import './Modal.less';
 
@@ -14,14 +15,17 @@ interface ModalProps {
  */
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, width = 500 }) => {
   if (!isOpen) return null;
-
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
   };
 
-  return (
+  if (typeof document === 'undefined') {
+    return null;
+  }
+
+  return createPortal(
     <div className="modal-backdrop" onClick={handleBackdropClick}>
       <div className="modal-container" style={{ width: `${width}px` }}>
         <div className="modal-header">
@@ -37,7 +41,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, width =
         </div>
         <div className="modal-content">{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

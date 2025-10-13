@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import type { Category } from '../types';
 import { configService } from '../services/config';
 import { useConfig } from './useConfig';
@@ -10,7 +10,23 @@ export const useCategories = () => {
   const { config, updateConfig } = useConfig();
 
   // 获取所有分类
-  const categories = config.categories.sort((a, b) => a.order - b.order);
+  const categories = useMemo(() => {
+    const sorted = [...config.categories].sort((a, b) => a.order - b.order);
+    const hasFrequent = sorted.some((cat) => cat.id === 'frequent');
+    if (hasFrequent) {
+      return sorted;
+    }
+    return [
+      {
+        id: 'frequent',
+        name: '常用',
+        icon: '⭐',
+        color: '#FFB300',
+        order: -1,
+      },
+      ...sorted,
+    ];
+  }, [config.categories]);
 
   // 获取当前激活的分类
   const activeCategory = config.settings.activeCategory;
@@ -27,11 +43,11 @@ export const useCategories = () => {
   // 添加分类
   const addCategory = useCallback(
     (category: Omit<Category, 'id' | 'order'>) => {
-      const success = configService.addCategory(category);
-      if (success) {
+      const newCategory = configService.addCategory(category);
+      if (newCategory) {
         updateConfig({ categories: configService.getCategories() });
       }
-      return success;
+      return newCategory;
     },
     [updateConfig]
   );
@@ -77,8 +93,8 @@ export const useCategories = () => {
     activeCategory,
     setActiveCategory,
     addCategory,
-    updateCategory,
-    deleteCategory,
+  updateCategory,
+  deleteCategory,
     reorderCategories,
   };
 };

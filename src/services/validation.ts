@@ -127,6 +127,7 @@ export const sanitizeConfig = (config: AppConfig): AppConfig => {
     websites: config.websites.map((site) => ({
       ...site,
       order: Math.max(0, site.order),
+      clickCount: Math.max(0, site.clickCount || 0),
     })),
     background: {
       ...config.background,

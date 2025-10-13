@@ -50,7 +50,7 @@ class ConfigService {
   /**
    * 添加分类
    */
-  addCategory(category: Omit<Category, 'id' | 'order'>): boolean {
+  addCategory(category: Omit<Category, 'id' | 'order'>): Category | null {
     const config = this.getConfig();
     const maxOrder = Math.max(...config.categories.map((c) => c.order), -1);
     const newCategory: Category = {
@@ -59,7 +59,11 @@ class ConfigService {
       order: maxOrder + 1,
     };
     config.categories.push(newCategory);
-    return storageService.save(config);
+    const saved = storageService.save(config);
+    if (!saved) {
+      return null;
+    }
+    return newCategory;
   }
 
   /**
@@ -137,6 +141,7 @@ class ConfigService {
       ...website,
       id: `site_${Date.now()}`,
       order: maxOrder + 1,
+      clickCount: 0,
     };
     config.websites.push(newWebsite);
     return storageService.save(config);

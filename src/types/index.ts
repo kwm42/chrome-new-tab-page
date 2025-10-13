@@ -21,6 +21,7 @@ export interface Website {
   icon?: string; // Emoji、Base64 或图标 URL
   iconType?: 'emoji' | 'base64' | 'url' | 'auto'; // 图标类型
   color?: string;
+  clickCount?: number; // 用户点击次数
 }
 
 /**
