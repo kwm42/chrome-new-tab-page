@@ -55,6 +55,34 @@
   gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
+  max-height: 265px; // 3行的高度（每行约90px：48px图标 + 8px间距 + 16px文字 + 18px行间距）
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 0;
+
+  // 自定义滚动条样式
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    transition: background 0.2s;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  // Firefox 滚动条样式
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.05);
 
   .add-shortcut {
     display: flex;
