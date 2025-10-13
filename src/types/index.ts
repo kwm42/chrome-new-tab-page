@@ -16,10 +16,11 @@ export interface Website {
   id: string;
   name: string;
   url: string;
-  icon?: string;
   categoryId: string;
-  color?: string;
   order: number;
+  icon?: string; // Emoji、Base64 或图标 URL
+  iconType?: 'emoji' | 'base64' | 'url' | 'auto'; // 图标类型
+  color?: string;
 }
 
 /**

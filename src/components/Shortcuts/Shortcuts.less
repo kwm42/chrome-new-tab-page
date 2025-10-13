@@ -1,14 +1,61 @@
+.shortcuts-wrapper {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.edit-mode-toggle {
+  position: absolute;
+  top: -48px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.87);
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 1);
+    border-color: #42a5f5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &.active {
+    background: #42a5f5;
+    color: #fff;
+    border-color: #42a5f5;
+
+    &:hover {
+      background: #1e88e5;
+      border-color: #1e88e5;
+    }
+  }
+}
+
 .shortcuts-container {
   display: flex;
+  gap: 20px;
   justify-content: center;
-  align-items: flex-start;
-  gap: 16px;
   flex-wrap: wrap;
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 0 16px;
 
-  .shortcut-item {
+  .add-shortcut {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,56 +73,33 @@
     &:active {
       transform: scale(0.95);
     }
-  }
 
-  .shortcut-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    transition: background-color 0.2s, box-shadow 0.2s;
-    color: #5f6368;
-
-    img {
-      width: 28px;
-      height: 28px;
-      object-fit: contain;
-    }
-
-    .shortcut-initials {
-      font-size: 16px;
-      font-weight: 500;
-      color: #fff;
-    }
-
-    .shortcut-emoji {
-      font-size: 24px;
-      line-height: 1;
-    }
-
-    svg {
-      color: #5f6368;
-    }
-  }
-
-  .add-shortcut {
     .shortcut-icon {
-      background-color: #f1f3f4 !important;
-    }
-  }
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      transition: background-color 0.2s, box-shadow 0.2s;
+      color: #5f6368;
 
-  .shortcut-name {
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.87);
-    text-align: center;
-    max-width: 90px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    line-height: 16px;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.95);
+      }
+    }
+
+    .shortcut-name {
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.87);
+      text-align: center;
+      max-width: 90px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      line-height: 16px;
+    }
   }
 }

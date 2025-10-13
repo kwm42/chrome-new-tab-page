@@ -1,0 +1,268 @@
+.add-website-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.87);
+
+    .required {
+      color: #f44336;
+      margin-left: 4px;
+    }
+  }
+
+  .form-input,
+  .form-select {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.2s;
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+      border-color: #42a5f5;
+      box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.1);
+    }
+
+    &.error {
+      border-color: #f44336;
+
+      &:focus {
+        box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.1);
+      }
+    }
+
+    &::placeholder {
+      color: #999;
+    }
+  }
+
+  .form-hint {
+    font-size: 12px;
+    color: #666;
+  }
+
+  .error-message {
+    font-size: 12px;
+    color: #f44336;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .color-input-wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .form-color {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &::-webkit-color-swatch-wrapper {
+      padding: 2px;
+    }
+
+    &::-webkit-color-swatch {
+      border: none;
+      border-radius: 4px;
+    }
+
+    &:hover {
+      border-color: #42a5f5;
+    }
+  }
+
+  .color-text {
+    flex: 1;
+    text-transform: uppercase;
+  }
+
+  // 图标选择器
+  .icon-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .icon-type-tabs {
+    display: flex;
+    gap: 8px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0;
+  }
+
+  .tab-btn {
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    position: relative;
+    top: 1px;
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.87);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    &.active {
+      color: #42a5f5;
+      border-bottom-color: #42a5f5;
+      font-weight: 500;
+    }
+  }
+
+  .icon-input-area {
+    padding: 12px 0;
+  }
+
+  .auto-favicon-section,
+  .emoji-input-section,
+  .upload-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hint-text {
+    font-size: 13px;
+    color: #666;
+    margin: 0;
+  }
+
+  .favicon-preview,
+  .icon-preview {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    background: #f5f5f5;
+    border-radius: 6px;
+    width: fit-content;
+
+    img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+
+    .preview-emoji {
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    span {
+      font-size: 12px;
+      color: #666;
+    }
+  }
+
+  .upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+    padding-top: 24px;
+    border-top: 1px solid #e0e0e0;
+
+    .footer-left,
+    .footer-right {
+      display: flex;
+      gap: 12px;
+    }
+  }
+
+  .btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+    }
+
+    &.btn-secondary {
+      background: #f5f5f5;
+      color: rgba(0, 0, 0, 0.87);
+
+      &:hover {
+        background: #e0e0e0;
+      }
+
+      &:active {
+        background: #d5d5d5;
+      }
+    }
+
+    &.btn-primary {
+      background: #42a5f5;
+      color: #fff;
+
+      &:hover {
+        background: #1e88e5;
+      }
+
+      &:active {
+        background: #1976d2;
+      }
+    }
+
+    &.btn-danger {
+      background: #f44336;
+      color: #fff;
+
+      &:hover {
+        background: #e53935;
+      }
+
+      &:active {
+        background: #d32f2f;
+      }
+    }
+  }
+}
+
+// 响应式
+@media (max-width: 480px) {
+  .add-website-form {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+}

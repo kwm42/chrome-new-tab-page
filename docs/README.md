@@ -50,17 +50,33 @@ Phase 2: 分类系统开发完成报告，包括：
 - 完整的工作流程说明
 - 测试验证方法
 
+## 🎨 交互优化记录
+
+### [EDIT_INTERACTION_IMPROVEMENT.md](./EDIT_INTERACTION_IMPROVEMENT.md)
+编辑交互改进记录：
+- 从悬停按钮改为右键菜单
+- 删除功能集成到编辑弹窗
+- 提升用户体验，减少误触
+
+### [DRAG_DROP_SORT.md](./DRAG_DROP_SORT.md)
+拖拽排序功能实现文档：
+- HTML5 原生拖拽 API 实现
+- 视觉反馈和动画效果
+- 实时保存排序结果
+
 ## 🗂️ 文档组织
 
 ```
 docs/
-├── README.md                    # 本文件 - 文档索引
-├── DESIGN.md                    # 功能设计文档
-├── PROJECT_STRUCTURE.md         # 项目结构说明
-├── PHASE2_REPORT.md            # Phase 2 完成报告
-├── FIX_CATEGORY_SWITCH.md      # 分类切换修复
-├── STATE_SYNC_ISSUE.md         # 状态同步问题分析
-└── FIX_STATE_SYNC.md           # 状态同步修复报告
+├── README.md                       # 本文件 - 文档索引
+├── DESIGN.md                       # 功能设计文档
+├── PROJECT_STRUCTURE.md            # 项目结构说明
+├── PHASE2_REPORT.md               # Phase 2 完成报告
+├── FIX_CATEGORY_SWITCH.md         # 分类切换修复
+├── STATE_SYNC_ISSUE.md            # 状态同步问题分析
+├── FIX_STATE_SYNC.md              # 状态同步修复报告
+├── EDIT_INTERACTION_IMPROVEMENT.md # 编辑交互优化
+└── DRAG_DROP_SORT.md              # 拖拽排序功能
 ```
 
 ## 📖 阅读顺序建议
