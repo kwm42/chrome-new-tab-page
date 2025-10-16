@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '../Modal';
 import { useConfig } from '../../hooks/useConfig';
 import { useBackground } from '../../hooks/useBackground';
@@ -10,6 +10,59 @@ interface SettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+const PRESET_IMAGE_PATHS = [
+  './image/001.jpg',
+  './image/002.jpg',
+  './image/003.jpg',
+  './image/004.jpg',
+  './image/005.jpg',
+  './image/006.jpg',
+  './image/007.jpg',
+  './image/008.jpg',
+];
+const IMAGE_HISTORY_STORAGE_KEY = 'chrome-tab-image-history';
+const VIDEO_HISTORY_STORAGE_KEY = 'chrome-tab-video-history';
+const HISTORY_LIMIT = 7;
+
+const loadHistory = (storageKey: string): string[] => {
+  if (typeof window === 'undefined') {
+    return [];
+  }
+  try {
+    const raw = localStorage.getItem(storageKey);
+    if (!raw) {
+      return [];
+    }
+    const parsed = JSON.parse(raw) as unknown;
+    if (Array.isArray(parsed)) {
+      return parsed.filter((item): item is string => typeof item === 'string').slice(0, HISTORY_LIMIT);
+    }
+    return [];
+  } catch (error) {
+    console.warn('加载历史记录失败:', error);
+    return [];
+  }
+};
+
+const saveHistory = (storageKey: string, value: string): string[] => {
+  if (typeof window === 'undefined') {
+    return [];
+  }
+  const trimmed = value.trim();
+  if (!trimmed) {
+    return loadHistory(storageKey);
+  }
+  const current = loadHistory(storageKey).filter((item) => item !== trimmed);
+  current.unshift(trimmed);
+  const next = current.slice(0, HISTORY_LIMIT);
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(next));
+  } catch (error) {
+    console.warn('保存历史记录失败:', error);
+  }
+  return next;
+};
 
 /**
  * 设置弹窗 - 配置管理 + 背景设置
@@ -37,6 +90,20 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
   
   // 外观设置
   const [websiteNameColor, setWebsiteNameColor] = useState(config.settings.websiteNameColor || '#000000');
+  const [recentImagePaths, setRecentImagePaths] = useState<string[]>([]);
+  const [recentVideoPaths, setRecentVideoPaths] = useState<string[]>([]);
+
+  const previewImageSrc = imagePath.trim() || (background.type === 'file' ? background.value || '' : '');
+  const previewVideoSrc = videoPath.trim() || (background.type === 'video' ? background.value || '' : '');
+
+  useEffect(() => {
+    if (isOpen) {
+      setRecentImagePaths(
+        loadHistory(IMAGE_HISTORY_STORAGE_KEY).filter((path) => !PRESET_IMAGE_PATHS.includes(path))
+      );
+      setRecentVideoPaths(loadHistory(VIDEO_HISTORY_STORAGE_KEY));
+    }
+  }, [isOpen]);
 
   const handleExport = () => {
     const jsonString = exportConfig();
@@ -129,30 +196,58 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
 
   // 保存图片背景路径
   const handleSaveImagePath = () => {
-    if (!imagePath.trim()) {
+    const trimmed = imagePath.trim();
+    if (!trimmed) {
       setPathError('请输入图片文件路径');
       return;
     }
     
     setPathError('');
-    setFileBackground(imagePath);
+    setImagePath(trimmed);
+    setFileBackground(trimmed);
     updateBackgroundEffects(effects);
+    if (!PRESET_IMAGE_PATHS.includes(trimmed)) {
+      const nextHistory = saveHistory(IMAGE_HISTORY_STORAGE_KEY, trimmed);
+      setRecentImagePaths(nextHistory.filter((path) => !PRESET_IMAGE_PATHS.includes(path)));
+    }
     setMessage({ type: 'success', text: '背景已保存！' });
     setTimeout(() => setMessage(null), 3000);
   };
 
   // 保存视频背景路径
   const handleSaveVideoPath = () => {
-    if (!videoPath.trim()) {
+    const trimmed = videoPath.trim();
+    if (!trimmed) {
       setPathError('请输入视频文件路径');
       return;
     }
     
     setPathError('');
-    setVideoBackground(videoPath);
+    setVideoPath(trimmed);
+    setVideoBackground(trimmed);
     updateBackgroundEffects(effects);
+    const nextHistory = saveHistory(VIDEO_HISTORY_STORAGE_KEY, trimmed);
+    setRecentVideoPaths(nextHistory);
     setMessage({ type: 'success', text: '视频背景已保存！' });
     setTimeout(() => setMessage(null), 3000);
+  };
+
+  const handlePresetImageSelect = (path: string) => {
+    setBackgroundType('image');
+    setImagePath(path);
+    setPathError('');
+  };
+
+  const handleRecentImageSelect = (path: string) => {
+    setBackgroundType('image');
+    setImagePath(path);
+    setPathError('');
+  };
+
+  const handleRecentVideoSelect = (path: string) => {
+    setBackgroundType('video');
+    setVideoPath(path);
+    setPathError('');
   };
 
   // 保存外观设置
@@ -451,9 +546,48 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                   </button>
                 </div>
 
-                {background.type === 'file' && background.value && (
+                <div className="preset-wrapper">
+                  <div className="section-label">预设图片</div>
+                  <div className="preset-grid">
+                    {PRESET_IMAGE_PATHS.map((path) => (
+                      <button
+                        key={path}
+                        type="button"
+                        className={`preset-card ${imagePath === path ? 'active' : ''}`}
+                        onClick={() => handlePresetImageSelect(path)}
+                        title={path}
+                      >
+                        <img src={path} alt="预设背景" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {recentImagePaths.length > 0 && (
+                  <div className="recent-list">
+                    <div className="section-label">最近使用</div>
+                    <div className="recent-tags">
+                      {recentImagePaths.map((path) => {
+                        const fileName = path.split(/[\\/]/).pop() || path;
+                        return (
+                          <button
+                            key={path}
+                            type="button"
+                            className="recent-btn"
+                            onClick={() => handleRecentImageSelect(path)}
+                            title={path}
+                          >
+                            {fileName}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {previewImageSrc && (
                   <div className="image-preview">
-                    <img src={background.value} alt="背景预览" />
+                    <img src={previewImageSrc} alt="背景预览" />
                   </div>
                 )}
               </div>
@@ -482,9 +616,31 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                   </button>
                 </div>
 
-                {background.type === 'video' && background.value && (
+                {recentVideoPaths.length > 0 && (
+                  <div className="recent-list">
+                    <div className="section-label">最近使用</div>
+                    <div className="recent-tags">
+                      {recentVideoPaths.map((path) => {
+                        const fileName = path.split(/[\\/]/).pop() || path;
+                        return (
+                          <button
+                            key={path}
+                            type="button"
+                            className="recent-btn"
+                            onClick={() => handleRecentVideoSelect(path)}
+                            title={path}
+                          >
+                            {fileName}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {previewVideoSrc && (
                   <div className="video-preview">
-                    <video src={background.value} controls muted loop />
+                    <video src={previewVideoSrc} controls muted loop />
                   </div>
                 )}
               </div>

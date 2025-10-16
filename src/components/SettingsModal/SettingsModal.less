@@ -474,6 +474,87 @@
         display: block;
       }
     }
+
+    .preset-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+
+      .preset-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 12px;
+      }
+
+      .preset-card {
+        position: relative;
+        padding: 0;
+        border: 2px solid transparent;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        background: #f5f5f5;
+        transition: all 0.2s;
+        outline: none;
+
+        img {
+          width: 100%;
+          height: 70px;
+          object-fit: cover;
+          display: block;
+        }
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        &:focus {
+          box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.4);
+        }
+
+        &.active {
+          border-color: #42a5f5;
+          box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.2);
+        }
+      }
+    }
+
+    .recent-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+
+      .recent-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .recent-btn {
+        padding: 6px 12px;
+        border-radius: 16px;
+        border: 1px solid #e0e0e0;
+        background: #fff;
+        color: #555;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+        outline: none;
+
+        &:hover {
+          background: #e3f2fd;
+          border-color: #42a5f5;
+          color: #1976d2;
+        }
+
+        &:focus {
+          box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.3);
+        }
+      }
+    }
   }
 
   // 效果控制

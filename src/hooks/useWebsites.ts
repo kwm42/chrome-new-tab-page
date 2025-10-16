@@ -23,7 +23,7 @@ export const useWebsites = (categoryId?: string) => {
           }
           return a.order - b.order;
         })
-        .slice(0, 14);
+        .slice(0, 13);
     }
 
     let sites = allSites;
