@@ -8,22 +8,24 @@ import './header.less';
 const Header: React.FC = () => {
   const { config } = useConfig();
   const headerTextColor = config.settings.headerTextColor || 'rgba(0, 0, 0, 0.87)';
+  const headerLinks = config.settings.headerLinks || [];
 
   return (
     <header className="header" style={{ color: headerTextColor }}>
       <div className="header-left">
-        <a href="https://www.bilibili.com" className="header-link" style={{ color: headerTextColor }}>
-          <img src="https://www.bilibili.com/favicon.ico" alt="Bilibili" className="link-favicon" />
-          <span>Bilibili</span>
-        </a>
-        <a href="https://www.youtube.com" className="header-link" style={{ color: headerTextColor }}>
-          <img src="https://www.youtube.com/favicon.ico" alt="YouTube" className="link-favicon" />
-          <span>YouTube</span>
-        </a>
-        <a href="https://www.similarweb.com" className="header-link" style={{ color: headerTextColor }}>
-          <img src="https://www.similarweb.com/favicon.ico" alt="SimilarWeb" className="link-favicon" />
-          <span>SimilarWeb</span>
-        </a>
+        {headerLinks.map((link) => (
+          <a
+            key={link.id}
+            href={link.url}
+            className="header-link"
+            style={{ color: headerTextColor }}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={link.icon} alt={link.name} className="link-favicon" />
+            <span>{link.name}</span>
+          </a>
+        ))}
       </div>
       <div className="header-right">
         <div className="header-links" style={{ color: headerTextColor }}>

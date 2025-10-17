@@ -4,6 +4,7 @@ import { useConfig } from '../../hooks/useConfig';
 import { useBackground } from '../../hooks/useBackground';
 import { LIGHT_COLORS } from '../../utils/colors';
 import { getDefaultConfig } from '../../data/default-config';
+import type { HeaderLink } from '../../types';
 import './SettingsModal.less';
 
 interface SettingsModalProps {
@@ -71,7 +72,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
   const { config, updateConfig, exportConfig, importConfig, resetWebsitesConfig } = useConfig();
   const { background, setGradientBackground, setFileBackground, setVideoBackground, updateBackgroundEffects } = useBackground();
   
-  const [activeTab, setActiveTab] = useState<'config' | 'background' | 'appearance'>('config');
+  const [activeTab, setActiveTab] = useState<'config' | 'background' | 'appearance' | 'header'>('config');
   const [importText, setImportText] = useState('');
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   
@@ -93,6 +94,30 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
   const [headerTextColor, setHeaderTextColor] = useState(config.settings.headerTextColor || '#000000');
   const [recentImagePaths, setRecentImagePaths] = useState<string[]>([]);
   const [recentVideoPaths, setRecentVideoPaths] = useState<string[]>([]);
+
+  // Header 链接设置
+  const [headerLinks, setHeaderLinks] = useState<HeaderLink[]>(
+    config.settings.headerLinks || [
+      {
+        id: 'bilibili',
+        name: 'Bilibili',
+        url: 'https://www.bilibili.com',
+        icon: 'https://www.bilibili.com/favicon.ico'
+      },
+      {
+        id: 'youtube',
+        name: 'YouTube',
+        url: 'https://www.youtube.com',
+        icon: 'https://www.youtube.com/favicon.ico'
+      },
+      {
+        id: 'similarweb',
+        name: 'SimilarWeb',
+        url: 'https://www.similarweb.com',
+        icon: 'https://www.similarweb.com/favicon.ico'
+      }
+    ]
+  );
 
   const previewImageSrc = imagePath.trim() || (background.type === 'file' ? background.value || '' : '');
   const previewVideoSrc = videoPath.trim() || (background.type === 'video' ? background.value || '' : '');
@@ -332,6 +357,86 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
+  // ===== Header 链接管理相关 =====
+  
+  // 添加新的 Header 链接
+  const handleAddHeaderLink = () => {
+    if (headerLinks.length >= 10) return;
+    
+    const newLink: HeaderLink = {
+      id: `link-${Date.now()}`,
+      name: '新链接',
+      url: 'https://example.com',
+      icon: 'https://example.com/favicon.ico'
+    };
+    
+    setHeaderLinks([...headerLinks, newLink]);
+  };
+
+  // 删除 Header 链接
+  const handleRemoveHeaderLink = (index: number) => {
+    const newLinks = headerLinks.filter((_, i) => i !== index);
+    setHeaderLinks(newLinks);
+  };
+
+  // 更新 Header 链接
+  const handleUpdateHeaderLink = (index: number, field: keyof HeaderLink, value: string) => {
+    const newLinks = [...headerLinks];
+    newLinks[index] = { ...newLinks[index], [field]: value };
+    setHeaderLinks(newLinks);
+  };
+
+  // 保存 Header 链接设置
+  const handleSaveHeaderLinks = () => {
+    updateConfig({
+      settings: {
+        ...config.settings,
+        headerLinks,
+      },
+    });
+    setMessage({ type: 'success', text: 'Header 链接设置已保存！' });
+    setTimeout(() => setMessage(null), 3000);
+  };
+
+  // 重置 Header 链接为默认
+  const handleResetHeaderLinks = () => {
+    const confirmed = window.confirm(
+      '确定要重置 Header 链接吗？\n\n这将恢复到默认的链接配置。'
+    );
+    if (confirmed) {
+      const defaultLinks: HeaderLink[] = [
+        {
+          id: 'bilibili',
+          name: 'Bilibili',
+          url: 'https://www.bilibili.com',
+          icon: 'https://www.bilibili.com/favicon.ico'
+        },
+        {
+          id: 'youtube',
+          name: 'YouTube',
+          url: 'https://www.youtube.com',
+          icon: 'https://www.youtube.com/favicon.ico'
+        },
+        {
+          id: 'similarweb',
+          name: 'SimilarWeb',
+          url: 'https://www.similarweb.com',
+          icon: 'https://www.similarweb.com/favicon.ico'
+        }
+      ];
+      
+      setHeaderLinks(defaultLinks);
+      updateConfig({
+        settings: {
+          ...config.settings,
+          headerLinks: defaultLinks,
+        },
+      });
+      setMessage({ type: 'success', text: 'Header 链接已重置！' });
+      setTimeout(() => setMessage(null), 3000);
+    }
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="设置" width={600}>
       <div className="settings-content">
@@ -357,6 +462,13 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
             onClick={() => setActiveTab('appearance')}
           >
             外观设置
+          </button>
+          <button
+            type="button"
+            className={`tab-btn ${activeTab === 'header' ? 'active' : ''}`}
+            onClick={() => setActiveTab('header')}
+          >
+            Header 链接
           </button>
         </div>
 
@@ -792,6 +904,91 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                     保存设置
                   </button>
                   <button type="button" className="btn btn-secondary" onClick={handleResetAppearance}>
+                    重置为默认
+                  </button>
+                </div>
+              </div>
+            </section>
+          </div>
+        )}
+
+        {/* Header 链接设置 Tab */}
+        {activeTab === 'header' && (
+          <div className="tab-content header-tab">
+            <section className="settings-section">
+              <h3 className="section-title">🔗 Header 链接配置</h3>
+              <p className="section-desc">配置顶部导航栏左侧显示的链接</p>
+              
+              <div className="header-links-config">
+                {headerLinks.map((link, index) => (
+                  <div key={link.id} className="link-config-item">
+                    <div className="link-config-header">
+                      <span className="link-order">#{index + 1}</span>
+                      <div className="link-preview">
+                        <img src={link.icon} alt={link.name} className="link-favicon-preview" />
+                        <span className="link-name-preview">{link.name}</span>
+                      </div>
+                      <button
+                        type="button"
+                        className="remove-link-btn"
+                        onClick={() => handleRemoveHeaderLink(index)}
+                        title="删除链接"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                    
+                    <div className="link-config-fields">
+                      <div className="field-group">
+                        <label className="field-label">名称</label>
+                        <input
+                          type="text"
+                          value={link.name}
+                          onChange={(e) => handleUpdateHeaderLink(index, 'name', e.target.value)}
+                          className="field-input"
+                          placeholder="链接名称"
+                        />
+                      </div>
+                      
+                      <div className="field-group">
+                        <label className="field-label">网址</label>
+                        <input
+                          type="url"
+                          value={link.url}
+                          onChange={(e) => handleUpdateHeaderLink(index, 'url', e.target.value)}
+                          className="field-input"
+                          placeholder="https://example.com"
+                        />
+                      </div>
+                      
+                      <div className="field-group">
+                        <label className="field-label">图标 URL</label>
+                        <input
+                          type="url"
+                          value={link.icon}
+                          onChange={(e) => handleUpdateHeaderLink(index, 'icon', e.target.value)}
+                          className="field-input"
+                          placeholder="https://example.com/favicon.ico"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                
+                <button
+                  type="button"
+                  className="add-link-btn"
+                  onClick={handleAddHeaderLink}
+                  disabled={headerLinks.length >= 10}
+                >
+                  + 添加链接 ({headerLinks.length}/10)
+                </button>
+                
+                <div className="button-group">
+                  <button type="button" className="btn btn-primary" onClick={handleSaveHeaderLinks}>
+                    保存 Header 链接
+                  </button>
+                  <button type="button" className="btn btn-secondary" onClick={handleResetHeaderLinks}>
                     重置为默认
                   </button>
                 </div>

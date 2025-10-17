@@ -44,12 +44,20 @@ export interface BackgroundConfig {
 /**
  * 应用设置接口
  */
+export interface HeaderLink {
+  id: string;
+  name: string;
+  url: string;
+  icon: string;
+}
+
 export interface Settings {
   activeCategory: string;
   theme: 'light' | 'dark' | 'auto';
   language: string;
   websiteNameColor?: string; // 网站名称文字颜色
   headerTextColor?: string; // Header 文字颜色
+  headerLinks?: HeaderLink[]; // Header 左侧链接
 }
 
 /**

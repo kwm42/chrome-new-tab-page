@@ -484,6 +484,26 @@
     "activeCategory": "tools",
     "theme": "auto",
     "language": "zh-CN",
-    "websiteNameColor": "#030303"
+    "websiteNameColor": "#030303",
+    "headerLinks": [
+      {
+        "id": "bilibili",
+        "name": "Bilibili",
+        "url": "https://www.bilibili.com",
+        "icon": "https://www.bilibili.com/favicon.ico"
+      },
+      {
+        "id": "youtube",
+        "name": "YouTube",
+        "url": "https://www.youtube.com",
+        "icon": "https://www.youtube.com/favicon.ico"
+      },
+      {
+        "id": "similarweb",
+        "name": "SimilarWeb",
+        "url": "https://www.similarweb.com",
+        "icon": "https://www.similarweb.com/favicon.ico"
+      }
+    ]
   }
 }

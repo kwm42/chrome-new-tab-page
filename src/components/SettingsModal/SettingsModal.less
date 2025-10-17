@@ -747,6 +747,123 @@
       }
     }
   }
+
+  // Header 链接配置样式
+  .header-links-config {
+    .link-config-item {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      background: #fafafa;
+
+      .link-config-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+
+        .link-order {
+          background: #42A5F5;
+          color: white;
+          padding: 2px 8px;
+          border-radius: 12px;
+          font-size: 12px;
+          font-weight: 500;
+          min-width: 24px;
+          text-align: center;
+        }
+
+        .link-preview {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex: 1;
+
+          .link-favicon-preview {
+            width: 16px;
+            height: 16px;
+            border-radius: 2px;
+          }
+
+          .link-name-preview {
+            font-weight: 500;
+            color: #333;
+          }
+        }
+
+        .remove-link-btn {
+          background: #f44336;
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 24px;
+          height: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: 12px;
+
+          &:hover {
+            background: #d32f2f;
+          }
+        }
+      }
+
+      .link-config-fields {
+        display: grid;
+        grid-template-columns: 1fr 2fr 2fr;
+        gap: 12px;
+
+        .field-group {
+          .field-label {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+            font-weight: 500;
+          }
+
+          .field-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+
+            &:focus {
+              outline: none;
+              border-color: #42A5F5;
+              box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.2);
+            }
+          }
+        }
+      }
+    }
+
+    .add-link-btn {
+      width: 100%;
+      padding: 12px;
+      border: 2px dashed #ccc;
+      background: transparent;
+      border-radius: 8px;
+      color: #666;
+      cursor: pointer;
+      font-size: 14px;
+      margin-bottom: 20px;
+
+      &:hover:not(:disabled) {
+        border-color: #42A5F5;
+        color: #42A5F5;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
 }
 
 @keyframes slideInUp {
