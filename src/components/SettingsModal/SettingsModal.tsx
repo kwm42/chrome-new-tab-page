@@ -90,6 +90,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
   
   // 外观设置
   const [websiteNameColor, setWebsiteNameColor] = useState(config.settings.websiteNameColor || '#000000');
+  const [headerTextColor, setHeaderTextColor] = useState(config.settings.headerTextColor || '#000000');
   const [recentImagePaths, setRecentImagePaths] = useState<string[]>([]);
   const [recentVideoPaths, setRecentVideoPaths] = useState<string[]>([]);
 
@@ -256,6 +257,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
       settings: {
         ...config.settings,
         websiteNameColor,
+        headerTextColor,
       },
     });
     setMessage({ type: 'success', text: '外观设置已保存！' });
@@ -265,15 +267,17 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
   // 重置外观设置（只重置外观，保留网站和背景设置）
   const handleResetAppearance = () => {
     const confirmed = window.confirm(
-      '确定要重置外观设置吗？\n\n网站名称颜色将恢复为默认黑色。\n网站配置和背景设置将保留。'
+      '确定要重置外观设置吗？\n\n网站名称颜色和 Header 文字颜色将恢复为默认黑色。\n网站配置和背景设置将保留。'
     );
     if (confirmed) {
       const defaultColor = 'rgba(0, 0, 0, 0.87)';
       setWebsiteNameColor(defaultColor);
+      setHeaderTextColor(defaultColor);
       updateConfig({
         settings: {
           ...config.settings,
           websiteNameColor: defaultColor,
+          headerTextColor: defaultColor,
         },
       });
       setMessage({ type: 'success', text: '外观设置已重置！' });
@@ -747,6 +751,39 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                     <div className="preview-name" style={{ color: websiteNameColor }}>
                       示例网站
                     </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section className="settings-section">
+              <h3 className="section-title">📝 Header 文字颜色</h3>
+              <p className="section-desc">自定义顶部导航栏文字的颜色</p>
+              
+              <div className="color-picker-group">
+                <div className="color-picker-row">
+                  <label className="color-label">Header 文字颜色</label>
+                  <div className="color-picker-wrapper">
+                    <input
+                      type="color"
+                      value={headerTextColor}
+                      onChange={(e) => setHeaderTextColor(e.target.value)}
+                      className="color-picker"
+                    />
+                    <input
+                      type="text"
+                      value={headerTextColor}
+                      onChange={(e) => setHeaderTextColor(e.target.value)}
+                      className="color-input"
+                      placeholder="#000000"
+                    />
+                  </div>
+                </div>
+                
+                <div className="color-preview">
+                  <div className="preview-label">预览效果</div>
+                  <div className="preview-header" style={{ color: headerTextColor, padding: '8px 12px', borderRadius: '4px', backgroundColor: 'rgba(0,0,0,0.05)' }}>
+                    Gmail · 图片 · 📋 · 👤
                   </div>
                 </div>
 

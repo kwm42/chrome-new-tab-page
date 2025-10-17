@@ -185,10 +185,51 @@
 
   .auto-favicon-section,
   .emoji-input-section,
-  .upload-section {
+  .upload-section,
+  .url-input-section {
     display: flex;
     flex-direction: column;
     gap: 12px;
+  }
+
+  .emoji-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .emoji-btn {
+    min-width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.2s;
+    outline: none;
+
+    &:hover {
+      transform: translateY(-1px);
+      border-color: rgba(66, 165, 245, 0.5);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.3);
+    }
+
+    &.active {
+      border-color: #42a5f5;
+      box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.2);
+    }
+
+    &.clear {
+      font-size: 13px;
+      color: rgba(0, 0, 0, 0.6);
+    }
   }
 
   .hint-text {

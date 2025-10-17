@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import Modal from '../Modal';
 import { useCategories } from '../../hooks/useCategories';
 import { useWebsites } from '../../hooks/useWebsites';
+import { useConfig } from '../../hooks/useConfig';
 import type { Website } from '../../types';
 import { fetchAndCacheFavicon, getFaviconUrl, fileToBase64 } from '../../utils/favicon';
 import { DEFAULT_LIGHT_COLOR } from '../../utils/colors';
@@ -16,14 +17,26 @@ interface AddWebsiteModalProps {
 /**
  * 添加/编辑网站弹窗
  */
+const QUICK_EMOJIS = ['😀', '🚀', '📚', '🎯', '💡', '🔥', '🛒', '⚙️', '🎮', '❤️', '🌐', '📺'];
+
 const AddWebsiteModal: React.FC<AddWebsiteModalProps> = ({ isOpen, onClose, editingWebsite }) => {
   const { categories } = useCategories();
   const { addWebsite, updateWebsite, deleteWebsite } = useWebsites();
+  const { config } = useConfig();
+
+  const defaultCategoryId = useMemo(() => {
+    const activeId = config.settings.activeCategory;
+    const validIds = categories.map((category) => category.id);
+    if (activeId && activeId !== 'frequent' && validIds.includes(activeId)) {
+      return activeId;
+    }
+    return 'all';
+  }, [categories, config.settings.activeCategory]);
 
   const [formData, setFormData] = useState({
     name: '',
     url: '',
-    categoryId: 'all',
+    categoryId: defaultCategoryId,
     icon: '',
     iconType: 'auto' as 'emoji' | 'base64' | 'url' | 'auto',
     color: DEFAULT_LIGHT_COLOR,
@@ -53,7 +66,7 @@ const AddWebsiteModal: React.FC<AddWebsiteModalProps> = ({ isOpen, onClose, edit
       setFormData({
         name: '',
         url: '',
-        categoryId: 'all',
+        categoryId: defaultCategoryId,
         icon: '',
         iconType: 'auto',
         color: DEFAULT_LIGHT_COLOR,
@@ -62,7 +75,7 @@ const AddWebsiteModal: React.FC<AddWebsiteModalProps> = ({ isOpen, onClose, edit
       setErrors({});
       setIsLoadingFavicon(false);
     }
-  }, [editingWebsite, isOpen]);
+  }, [editingWebsite, isOpen, defaultCategoryId]);
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -141,6 +154,14 @@ const AddWebsiteModal: React.FC<AddWebsiteModalProps> = ({ isOpen, onClose, edit
       newErrors.url = '请输入网站地址';
     } else if (!/^https?:\/\/.+/.test(formData.url)) {
       newErrors.url = '请输入有效的网址（以 http:// 或 https:// 开头）';
+    }
+
+    if (formData.iconType === 'url') {
+      if (!formData.icon.trim()) {
+        newErrors.icon = '请输入图标图片地址';
+      } else if (!/^https?:\/\/.+/.test(formData.icon.trim())) {
+        newErrors.icon = '请输入有效的图标链接（以 http:// 或 https:// 开头）';
+      }
     }
 
     setErrors(newErrors);
@@ -253,6 +274,13 @@ const AddWebsiteModal: React.FC<AddWebsiteModalProps> = ({ isOpen, onClose, edit
               >
                 上传图片
               </button>
+              <button
+                type="button"
+                className={`tab-btn ${formData.iconType === 'url' ? 'active' : ''}`}
+                onClick={() => setFormData((prev) => ({ ...prev, iconType: 'url' }))}
+              >
+                图片链接
+              </button>
             </div>
 
             <div className="icon-input-area">
@@ -289,6 +317,26 @@ const AddWebsiteModal: React.FC<AddWebsiteModalProps> = ({ isOpen, onClose, edit
                     onChange={(e) => handleChange('icon', e.target.value)}
                     maxLength={4}
                   />
+                  <div className="emoji-options">
+                    {QUICK_EMOJIS.map((emoji) => (
+                      <button
+                        key={emoji}
+                        type="button"
+                        className={`emoji-btn ${formData.icon === emoji ? 'active' : ''}`}
+                        onClick={() => handleChange('icon', emoji)}
+                        title={emoji}
+                      >
+                        {emoji}
+                      </button>
+                    ))}
+                    <button
+                      type="button"
+                      className="emoji-btn clear"
+                      onClick={() => handleChange('icon', '')}
+                    >
+                      清空
+                    </button>
+                  </div>
                   {formData.icon && (
                     <div className="icon-preview">
                       <span className="preview-emoji">{formData.icon}</span>
@@ -325,6 +373,31 @@ const AddWebsiteModal: React.FC<AddWebsiteModalProps> = ({ isOpen, onClose, edit
                     </div>
                   )}
                   <span className="form-hint">支持 PNG、JPG、SVG，不超过 2MB</span>
+                </div>
+              )}
+
+              {formData.iconType === 'url' && (
+                <div className="url-input-section">
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="输入图片链接，例如：https://example.com/logo.png"
+                    value={formData.icon}
+                    onChange={(e) => handleChange('icon', e.target.value)}
+                  />
+                  <span className="form-hint">请输入可访问的 http(s) 图片地址</span>
+                  {formData.icon && (
+                    <div className="icon-preview">
+                      <img
+                        src={formData.icon}
+                        alt="图标预览"
+                        onError={(event) => {
+                          event.currentTarget.style.display = 'none';
+                        }}
+                      />
+                      <span>预览</span>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

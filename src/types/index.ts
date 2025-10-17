@@ -49,6 +49,7 @@ export interface Settings {
   theme: 'light' | 'dark' | 'auto';
   language: string;
   websiteNameColor?: string; // 网站名称文字颜色
+  headerTextColor?: string; // Header 文字颜色
 }
 
 /**

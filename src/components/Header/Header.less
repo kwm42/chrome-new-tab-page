@@ -4,20 +4,36 @@
   right: 0;
   padding: 12px 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   width: 100%;
   box-sizing: border-box;
   z-index: 100;
 
   .header-left {
+    display: flex;
     flex: 1;
+    align-items: center;
+    gap: 2px;
   }
 
   .header-right {
     display: flex;
     align-items: center;
     gap: 12px;
+
+    .header-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-right: 12px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
   }
 
   .header-link {
@@ -27,9 +43,23 @@
     padding: 5px 8px;
     border-radius: 4px;
     transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    .link-favicon {
+      width: 16px;
+      height: 16px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    span {
+      white-space: nowrap;
     }
   }
 
