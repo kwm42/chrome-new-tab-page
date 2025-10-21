@@ -19,7 +19,7 @@ const Header: React.FC = () => {
             href={link.url}
             className="header-link"
             style={{ color: headerTextColor }}
-            target="_blank"
+            target="_self"
             rel="noopener noreferrer"
           >
             <img src={link.icon} alt={link.name} className="link-favicon" />
